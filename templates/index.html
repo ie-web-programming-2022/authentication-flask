@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}paymepal{% endblock %}
+
+{% block main %}
+
+{% if session["username"] %}
+<h2>Welcome back, {{session["username"]}}</h2>
+
+<a href="{{url_for('logout')}}">Logout</a>
+
+<ul class="transactions">
+    {% for transaction in transactions %}
+    <li><strong>{{transaction[2]}}: </strong>{{transaction[0]}} {{transaction[1]}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<form action="http://127.0.0.1:5000/login" method="POST">
+    <input type="text" name="user" placeholder="Username" id="user">
+    <input type="password" name="password" placeholder="Password" id="password">
+    <input type="submit" value="submit" class="submit">
+</form>
+{% endif %}
+{% endblock %}
