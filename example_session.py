@@ -3,6 +3,8 @@ from sqlalchemy import create_engine
 
 app = Flask(__name__)
 engine = create_engine("sqlite:///paymepal.db")
+app.config["SECRET_KEY"] = "this is a secret, change me!"
+
 
 @app.route("/login")
 def login():
