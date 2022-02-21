@@ -11,7 +11,7 @@
 
 <ul class="transactions">
     {% for transaction in transactions %}
-    <li><strong>{{transaction[2]}}: </strong>{{transaction[0]}} {{transaction[1]}}</li>
+    <li><strong><a href="/shops/{{transaction[3]}}">{{transaction[2]}}</a>: </strong>{{transaction[0]}} {{transaction[1]}}</li>
     {% endfor %}
 </ul>
 {% else %}

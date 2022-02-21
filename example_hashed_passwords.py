@@ -50,7 +50,7 @@ def index():
         transactions = []
         if "username" in session:
             transactions_query = f"""
-            SELECT t.amount, t.currency, s.name
+            SELECT t.amount, t.currency, s.name, s.id 
             FROM transactions t
             INNER JOIN users u on t.user_id=u.id
             INNER JOIN shops s on t.shop_id=s.id
@@ -61,6 +61,21 @@ def index():
         return render_template(
             "index.html",
             transactions=transactions)
+
+@app.route("/shops/<shop_id>")
+def show_shop(shop_id):
+
+    query = f"""
+    SELECT shops.name, users.username
+    FROM shops
+    INNER JOIN users ON shops.owner=users.id
+    WHERE shops.id={shop_id}
+    """
+
+    with engine.connect() as connection:
+        shop = connection.execute(query).fetchone()
+
+        return render_template("shop.html", shop=shop)
 
 
 app.run(debug = True)
